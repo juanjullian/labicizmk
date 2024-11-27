@@ -1,0 +1,43 @@
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &kp BTN1  // Botón izquierdo (GPIO 17)
+                &kp BTN3  // Botón central (scroll) (GPIO 20)
+                &kp BTN2  // Botón derecho (GPIO 22)
+            >;
+        };
+
+        encoder {
+            compatible = "rotary-encoder";
+
+            gpios = <&gpio0 29 GPIO_ACTIVE_LOW>, <&gpio0 31 GPIO_ACTIVE_LOW>;
+            steps = <4>;  // Ajusta según los pasos de tu encoder.
+            bindings = <&mouse_scroll_up>, <&mouse_scroll_down>;
+        };
+    };
+
+    gpio_keys {
+        compatible = "gpio-keys";
+
+        left_click: left {
+            gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
+            label = "Mouse Left Click";
+            bindings = <&kp BTN1>;  // Asocia al botón izquierdo del mouse.
+        };
+
+        middle_click: middle {
+            gpios = <&gpio0 20 GPIO_ACTIVE_LOW>;
+            label = "Mouse Middle Click";
+            bindings = <&kp BTN3>;  // Asocia al botón central (scroll click).
+        };
+
+        right_click: right {
+            gpios = <&gpio0 22 GPIO_ACTIVE_LOW>;
+            label = "Mouse Right Click";
+            bindings = <&kp BTN2>;  // Asocia al botón derecho del mouse.
+        };
+    };
+};
